@@ -98,8 +98,8 @@ This diagram shows a **non-blocking, event-driven TCP server** that handles mult
      ```
       docker-compose logs tcp-client
      ```
-     **OutPut**
-      ```
+     **Output**
+     ```
       redis_tcp_client  | [+] Connected to TCP server at tcp-server:6379
       redis_tcp_client  | [i] JSON Output: ON
       ```
@@ -108,16 +108,18 @@ This diagram shows a **non-blocking, event-driven TCP server** that handles mult
      ```bash
      docker attach redis_tcp_client
      ```
-     - Type commands like `PING`, `SET name Alice`, `GET name`, etc.
+   - **Step 5: Type commands like `PING`, `SET name Alice`, `GET name`, etc.**
 
-     **Output**
-    ![alt text](cmd2.png) 
-    ![alt text](cmd1.png)
+     **Output** 
 
-   - **Step 5: Stop the Server**
+     ![alt text](cmd1.png)
+     ![alt text](cmd2.png) 
+    
+
+   - **Step 6: Stop the Server**
      ```bash
-     docker-compose down
+     docker-compose down 
      ```
 
 ## DONE
----
+
