@@ -1,7 +1,52 @@
+#root/docker-compose#tcp/docker-compose
+
 version: '3.8'
 
 services:
   tcp-server:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "6379:6379"
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - redis_network
+    container_name: redis_tcp_server
+
+  tcp-client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - tcp-server
+    networks:
+      - redis_network
+    container_name: redis_tcp_client
+    entrypoint: ["python", "client.py"]
+
+networks:
+  redis_network:
+    driver: bridge
+
+
+version: '3.8'
+services:
+  tcp-service:
+    build:
+      context: ./TCP
+      dockerfile: Dockerfile
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./TCP/logs:/app/logs
+    networks:
+      - redis_network
+
+networks:
+  redis_network:
+    driver: bridge
+
+
+
