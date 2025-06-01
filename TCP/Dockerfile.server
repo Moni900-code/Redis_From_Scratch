@@ -1,0 +1,7 @@
+#  Dockerfile for TCP Server
+FROM python:3.10-slim
+WORKDIR /app
+COPY server.py .
+RUN mkdir logs && chmod -R 777 /app/logs
+EXPOSE 6379
+CMD ["python", "server.py"]

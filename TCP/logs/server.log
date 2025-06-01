@@ -1,0 +1,44 @@
+2025-06-01 10:33:55,288 [INFO] Server started on 0.0.0.0:6379
+2025-06-01 10:55:44,147 [INFO] Server started on 0.0.0.0:6379
+2025-06-01 10:57:20,956 [INFO] Server started on 0.0.0.0:6379
+2025-06-01 11:18:30,397 [INFO] Server started on 0.0.0.0:6379
+2025-06-01 11:18:30,792 [INFO] Accepted new connection from ('172.19.0.3', 58740)
+2025-06-01 11:18:55,021 [INFO] Closed connection from ('172.19.0.3', 58740): 
+2025-06-01 11:19:43,343 [INFO] Server started on 0.0.0.0:6379
+2025-06-01 11:19:43,644 [INFO] Accepted new connection from ('172.19.0.3', 58752)
+2025-06-01 11:20:08,990 [INFO] Command from ('172.19.0.3', 58752): Client> PING
+2025-06-01 11:20:08,991 [INFO] Command from ('172.19.0.3', 58752): {
+2025-06-01 11:20:08,993 [INFO] Command from ('172.19.0.3', 58752): "command": "PING",
+2025-06-01 11:20:08,996 [INFO] Command from ('172.19.0.3', 58752): "response": "PONG"
+2025-06-01 11:20:28,637 [INFO] Command from ('172.19.0.3', 58752): }
+2025-06-01 11:20:30,579 [INFO] Command from ('172.19.0.3', 58752): cler
+2025-06-01 11:20:32,750 [INFO] Command from ('172.19.0.3', 58752): clear
+2025-06-01 11:20:36,279 [INFO] Command from ('172.19.0.3', 58752): PING
+2025-06-01 11:29:43,804 [INFO] Command from ('172.19.0.3', 58752): SET name Alice
+2025-06-01 11:30:00,160 [INFO] Command from ('172.19.0.3', 58752): GET name
+2025-06-01 11:30:14,927 [INFO] Command from ('172.19.0.3', 58752): EXISTS name
+2025-06-01 11:30:31,290 [INFO] Command from ('172.19.0.3', 58752): DEL namenamenam
+2025-06-01 11:30:39,843 [INFO] Command from ('172.19.0.3', 58752): DEL name
+2025-06-01 11:31:30,401 [INFO] Command from ('172.19.0.3', 58752): INFO
+2025-06-01 11:31:41,055 [INFO] Command from ('172.19.0.3', 58752): EXIT
+2025-06-01 11:31:41,056 [INFO] Closed connection from ('172.19.0.3', 58752): 
+2025-06-01 12:05:47,199 [INFO] Server started on 0.0.0.0:6379
+2025-06-01 12:05:47,582 [INFO] Accepted new connection from ('172.20.0.3', 55984)
+2025-06-01 12:16:09,926 [INFO] Command from ('172.20.0.3', 55984): PING
+2025-06-01 12:16:59,928 [INFO] Command from ('172.20.0.3', 55984): SET name Alice
+2025-06-01 12:17:09,767 [INFO] Command from ('172.20.0.3', 55984): GET name
+2025-06-01 12:17:21,372 [INFO] Command from ('172.20.0.3', 55984): EXISTS name
+2025-06-01 12:17:29,973 [INFO] Command from ('172.20.0.3', 55984): DEL name
+2025-06-01 12:17:41,853 [INFO] Command from ('172.20.0.3', 55984): FLUSHALL
+2025-06-01 12:17:51,064 [INFO] Command from ('172.20.0.3', 55984): INFO
+2025-06-01 12:19:16,554 [INFO] Command from ('172.20.0.3', 55984): EXIT
+2025-06-01 12:19:16,556 [INFO] Closed connection from ('172.20.0.3', 55984): 
+2025-06-01 12:35:08,702 [INFO] Server started on 0.0.0.0:6379
+2025-06-01 12:35:09,025 [INFO] Accepted new connection from ('172.21.0.3', 58630)
+2025-06-01 12:35:54,806 [INFO] Command from ('172.21.0.3', 58630): SET name Alice
+2025-06-01 12:42:56,285 [INFO] Command from ('172.21.0.3', 58630): get name
+2025-06-01 12:43:08,527 [INFO] Command from ('172.21.0.3', 58630): set color blue
+2025-06-01 12:43:14,667 [INFO] Command from ('172.21.0.3', 58630): get color
+2025-06-01 13:08:59,726 [INFO] Command from ('172.21.0.3', 58630): EXITS
+2025-06-01 13:09:03,537 [INFO] Command from ('172.21.0.3', 58630): EXIT
+2025-06-01 13:09:03,538 [INFO] Closed connection from ('172.21.0.3', 58630): 

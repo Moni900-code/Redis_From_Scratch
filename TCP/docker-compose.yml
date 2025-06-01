@@ -1,0 +1,34 @@
+#Docker Compose for TCP Server and Client 
+version: '3.8'
+
+services:
+  tcp-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - redis_network
+    container_name: redis_tcp_server
+
+  tcp-client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    depends_on:
+      - tcp-server
+    networks:
+      - redis_network
+    container_name: redis_tcp_client
+    tty: true
+    stdin_open: true
+    environment:
+      - HOST=tcp-server
+      - PORT=6379
+
+networks:
+  redis_network:
+    driver: bridge
