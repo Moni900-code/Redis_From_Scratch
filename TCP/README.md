@@ -1,6 +1,6 @@
 
 
-## Lab 1: Build a Redis-like TCP Server in Python
+## Lab 1: Build a TCP Server in Python
 
 ### What is TCP?
 
@@ -34,29 +34,46 @@ Lab 1 focuses on building the foundational components of a Redis-like server. Th
 3. **Implementing a basic REPL loop for processing commands like `SET` and `GET`**
 
 ---
+# Workflow Diagram: 
 
-### What Was Done:
+![alt text](TCP_server.svg)
 
-#### 1. **TCP Server using `socket` Module**
+This diagram shows a **non-blocking, event-driven TCP server** that handles multiple clients using a **single thread**.
 
-- A server was implemented using Python's built-in `socket` module.
-- Listens on port `6379` (like Redis).
-- Accepts connections and reads commands from clients.
+1. The server listens on port 6379 using the `socket` module and accepts multiple client connections.
 
-#### 2. **Multi-Client Handling**
+2. Clients send simple commands like `SET name Alice` or `GET name`. The server processes these and responds with values or "OK", like a REPL.
 
-- The server can handle multiple clients concurrently using a `select` loop.
-- Each client has its own connection but shares a common in-memory key-value store.
+3. The server uses Python's `selectors` module to monitor all client sockets for I/O events (like incoming data). Instead of blocking on each socket, it reacts only when data is ready—efficiently handling many clients at once. This event-driven loop allows a single thread to serve multiple clients concurrently without using threads or processes, keeping the system lightweight and responsive.
 
-#### 3. **REPL (Read–Eval–Print Loop) Command Processing**
 
-- Supports Redis-like command structure:
-  - `PING`
-  - `SET key value`
-  - `GET key`
-- Responses are provided in JSON format in the client.
+## File Descriptions
+
+| File                 | Purpose                                                        |
+| -------------------- | -------------------------------------------------------------- |
+| `server.py`          | Main TCP server implementing Redis-like commands               |
+| `client.py`          | CLI-based TCP client for sending commands to the server        |
+| `Dockerfile`         | Docker image setup for the TCP server                          |
+| `docker-compose.yml` | Docker service configuration to run the server                 |
+| `logs/server.log`    | Log file auto-generated for server events and command activity |
 
 ---
+
+## Commands Supported by the Server
+
+| Command    | Description                          |
+| ---------- | ------------------------------------ |
+| `SET`      | Stores the key with the given value  |
+| `GET`      | Retrieves the value for a key        |
+| `DEL`      | Deletes a key                        |
+| `EXISTS`   | Checks if a key exists               |
+| `PING`     | Health check                         |
+| `INFO`     | Returns server uptime and total keys |
+| `FLUSHALL` | Deletes all keys                     |
+| `EXIT`     | Disconnects client from the server   |
+---
+
+
 
 ### Running the Project
 
@@ -92,70 +109,15 @@ Lab 1 focuses on building the foundational components of a Redis-like server. Th
      docker attach redis_tcp_client
      ```
      - Type commands like `PING`, `SET name Alice`, `GET name`, etc.
-    
-      **OutPut**
-    ![alt text](cmd1.png)
-    ![alt text](cmd2.png) 
- 
 
+     **Output**
+    ![alt text](cmd2.png) 
+    ![alt text](cmd1.png)
 
    - **Step 5: Stop the Server**
      ```bash
      docker-compose down
      ```
 
-## Multiple Client Testing 
-
-###  Terminal 1: Client 1
-
-```bash
-$ telnet localhost 6379
-```
-
-```json
-{
-  "command": "SET user1 Alice",
-  "response": "OK"
-}
-```
-
-```json
-{
-  "command": "GET user1",
-  "response": "Alice"
-}
-```
-
+## DONE
 ---
-
-### Terminal 2: Client 2
-
-```bash
-$ telnet localhost 6379
-```
-
-```json
-{
-  "command": "SET user2 Bob",
-  "response": "OK"
-}
-```
-
-```json
-{
-  "command": "GET user2",
-  "response": "Bob"
-}
-```
-
-```json
-{
-  "command": "GET user1",
-  "response": "Alice"
-}
-```
-
----
-
-* **SET** and **GET** work independently per client, yet reflect globally stored values.
-* This confirms that your server supports **multiple concurrent clients** with consistent data access.
