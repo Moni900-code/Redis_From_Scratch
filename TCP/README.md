@@ -36,7 +36,7 @@ Lab 1 focuses on building the foundational components of a Redis-like server. Th
 ---
 # Workflow Diagram: 
 
-![alt text](TCP_server.svg)
+![alt text](images/TCP_server.svg)
 
 This diagram shows a **non-blocking, event-driven TCP server** that handles multiple clients using a **single thread**.
 
@@ -112,8 +112,8 @@ This diagram shows a **non-blocking, event-driven TCP server** that handles mult
 
      **Output** 
 
-     ![alt text](cmd1.png)
-     ![alt text](cmd2.png) 
+     ![alt text](images/cmd1.png)
+     ![alt text](images/cmd2.png) 
     
 
    - **Step 6: Stop the Server**
