@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  tcp-server:
+    build: .
+    ports:
+      - "6379:6379"
