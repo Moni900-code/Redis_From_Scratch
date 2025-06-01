@@ -1,37 +1,40 @@
 import socket
 import selectors
 
+# --- Lab 1 Config ---
 HOST = '0.0.0.0'
 PORT = 6379
 
+# --- Selector for single-threaded I/O multiplexing ---
 sel = selectors.DefaultSelector()
 
-# In-memory key-value store
+# --- In-memory key-value store for REPL commands ---
 store = {}
 
+# --- Accept new client connections (Multiple Client Support) ---
 def accept(sock):
     conn, addr = sock.accept()
     print(f"Connected by {addr}")
     conn.setblocking(False)
     sel.register(conn, selectors.EVENT_READ, read)
 
+# --- Read client request and send response (Single-threaded request-response loop) ---
 def read(conn):
     try:
         data = conn.recv(1024)
         if data:
             command_line = data.decode().strip()
             print(f"Received: {command_line}")
-            response = handle_command(command_line)
+            response = handle_command(command_line)  # REPL-like command processing
             conn.sendall(response.encode())
         else:
-            print("Closing connection")
             sel.unregister(conn)
             conn.close()
     except ConnectionResetError:
-        print("Client forcibly closed connection")
         sel.unregister(conn)
         conn.close()
 
+# --- Command handler for PING, SET, GET ---
 def handle_command(command_line):
     parts = command_line.split()
     if len(parts) == 0:
@@ -55,12 +58,13 @@ def handle_command(command_line):
         key = parts[1]
         value = store.get(key)
         if value is None:
-            return "$-1\r\n"  # Redis style nil bulk string
+            return "$-1\r\n"
         return f"${len(value)}\r\n{value}\r\n"
 
     else:
         return f"-ERR unknown command '{cmd}'\r\n"
 
+# --- Main TCP server loop (Single-threaded event loop using selectors) ---
 def main():
     lsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     lsock.bind((HOST, PORT))
@@ -70,8 +74,8 @@ def main():
     sel.register(lsock, selectors.EVENT_READ, accept)
 
     while True:
-        events = sel.select()
-        for key, mask in events:
+        events = sel.select()  # Single-threaded event polling
+        for key, _ in events:
             callback = key.data
             callback(key.fileobj)
 
